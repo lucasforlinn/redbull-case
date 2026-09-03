@@ -14,6 +14,7 @@ Application under test: <https://qa-sample-lucas-forlin.up.railway.app>
 | :--------------------------------------------------------------------- | :----------------------------------------------------- |
 | [`docs/01-test-design-ticket-01.md`](docs/01-test-design-ticket-01.md) | Manual test design and results: filters (24 cases)     |
 | [`docs/02-test-design-ticket-02.md`](docs/02-test-design-ticket-02.md) | Manual test design and results: command API (31 cases) |
+| [`docs/03-message-to-pm-and-dev.md`](docs/03-message-to-pm-and-dev.md) | Communication to PM and Dev: Task 2 and auth findings  |
 | `tests/`                                                               | Playwright suite: 6 automated tests                    |
 
 ## Running
@@ -46,9 +47,9 @@ screen and the environment contains no real data.
 
 - **Filter combination and device validation:** Applies filters for **Online**, **Up to date**, and **Landscape**. Asserts pagination displays exactly 8 matching devices on 1 page, and verifies each displayed row in the table matches all three filter criteria.
 
-### E2E: Authentication
+### E2E: Authentication (Exploratory finding from Task 2)
 
-- **Case-insensitive email sign-in (Expected Fail):** Registers with lowercase email, signs out, and attempts sign-in with uppercase. _(Fails as the backend is case-sensitive on email lookup)._
+- **Case-insensitive email sign-in (Expected Fail):** Discovered during the exploratory testing of Task 2. Registers with lowercase email, signs out, and attempts sign-in with uppercase. _(Fails as the backend is case-sensitive on email lookup)._
 
 ---
 
@@ -62,10 +63,10 @@ The payoff is what happens after a fix: the test starts passing, and Playwright 
 build** with "expected to fail but passed". The suite is an executable specification that
 announces its own repairs.
 
-| Test                                                  | Spec                                             | Filed as                                                                                                                                            | What it asserts                                                              |
-| :---------------------------------------------------- | :----------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------- |
-| A command on an offline device is rejected with a 4xx | `tests/api/specs/devices-command.spec.js` (AC 2) | [#18](https://github.com/pshaddel/qa-case-study-lucas-forlinn/issues/18) & [#19](https://github.com/pshaddel/qa-case-study-lucas-forlinn/issues/19) | Returns `500` with internal stack trace instead of a handled 4xx             |
-| Registered user can sign in regardless of e-mail case | `tests/e2e/specs/auth.spec.js`                   | [#22](https://github.com/pshaddel/qa-case-study-lucas-forlinn/issues/22)                                                                            | Sign-in is case-sensitive and rejects registered users with different casing |
+| Test                                                  | Spec                                             | Filed as                                                                                                                                            | What it asserts                                                                                                    |
+| :---------------------------------------------------- | :----------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| A command on an offline device is rejected with a 4xx | `tests/api/specs/devices-command.spec.js` (AC 2) | [#18](https://github.com/pshaddel/qa-case-study-lucas-forlinn/issues/18) & [#19](https://github.com/pshaddel/qa-case-study-lucas-forlinn/issues/19) | Returns `500` with internal stack trace instead of a handled 4xx                                                   |
+| Registered user can sign in regardless of e-mail case | `tests/e2e/specs/auth.spec.js`                   | [#22](https://github.com/pshaddel/qa-case-study-lucas-forlinn/issues/22)                                                                            | Discovered during Task 2 exploration: sign-in is case-sensitive and rejects registered users with different casing |
 
 Both confirmed defects are tracked as issues on GitHub. The tests assert correct specification behaviour and will fail once the fixes land, alerting the team that the defects have been resolved.
 
