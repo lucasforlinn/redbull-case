@@ -1,0 +1,20 @@
+{
+  "name": "redbull-qa-case-study",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "QA case study — automated coverage for the Digital Poster Dashboard (Tickets #1 and #2)",
+  "engines": {
+    "node": ">=18.17.1"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:api": "playwright test --project=api",
+    "test:e2e": "playwright test --project=desktop",
+    "test:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "prettier": "^3.3.3"
+  }
+}
